@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Withdraw Funds | LendEarnWorld</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <h2>LendEarnWorld</h2>
+        </div>
+
+        <p class="brand-subtitle">Investor Dashboard</p>
+
+        <ul class="sidebar-menu">
+
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+            <li><a href="portfolio.html">📊 Portfolio</a></li>
+
+            <li><a href="deposit.html">💳 Deposit Funds</a></li>
+
+            <li class="active"><a href="withdraw.html">💸 Withdraw Funds</a></li>
+
+            <li><a href="transactions.html">📄 Transactions</a></li>
+
+            <li><a href="profile.html">👤 Profile</a></li>
+
+            <li><a href="settings.html">⚙️ Settings</a></li>
+
+            <li><a href="support.html">❓ Support</a></li>
+
+            <li><a href="index.html">🚪 Logout</a></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Withdraw Funds</h1>
+
+                <p>Transfer available funds from your account.</p>
+
+            </div>
+
+        </header>
+
+        <!-- Balance -->
+
+        <section class="cards">
+
+            <div class="card card-primary">
+
+                <span>Available Balance</span>
+
+                <h2>$5,200.00</h2>
+
+                <p>Funds currently available to withdraw.</p>
+
+            </div>
+
+        </section>
+
+        <!-- Withdrawal Form -->
+
+        <section class="panel">
+
+            <div class="panel-title">
+
+                <h2>Request Withdrawal</h2>
+
+            </div>
+
+            <form>
+
+                <div class="form-group">
+
+                    <label>Withdrawal Amount (USD)</label>
+
+                    <input type="number" placeholder="Enter amount">
+
+                </div>
+
+                <br>
+
+                <div class="form-group">
+
+                    <label>Withdrawal Method</label>
+
+                    <select>
+
+                        <option>Bank Transfer</option>
+
+                        <option>Cryptocurrency</option>
+
+                    </select>
+
+                </div>
+
+                <br>
+
+                <div class="form-group">
+
+                    <label>Destination Account / Wallet</label>
+
+                    <input type="text" placeholder="Enter bank account or wallet address">
+
+                </div>
+
+                <br>
+
+                <button type="submit" class="btn-primary">
+
+                    Submit Withdrawal
+
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Withdrawal History -->
+
+        <section class="panel">
+
+            <div class="panel-title">
+
+                <h2>Recent Withdrawals</h2>
+
+            </div>
+
+            <table class="activity-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Amount</th>
+
+                        <th>Method</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Jul 25, 2026</td>
+
+                        <td>$800.00</td>
+
+                        <td>Bank Transfer</td>
+
+                        <td><span class="badge pending">Processing</span></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Jul 18, 2026</td>
+
+                        <td>$1,200.00</td>
+
+                        <td>Bank Transfer</td>
+
+                        <td><span class="badge success">Completed</span></td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

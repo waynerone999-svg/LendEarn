@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Deposit Funds | LendEarnWorld</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+<div class="brand">
+
+<span class="brand-dot"></span>
+
+<h2>LendEarnWorld</h2>
+
+</div>
+
+<p class="brand-subtitle">Investor Dashboard</p>
+
+<ul class="sidebar-menu">
+
+<li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+<li><a href="portfolio.html">📊 Portfolio</a></li>
+
+<li class="active"><a href="deposit.html">💳 Deposit Funds</a></li>
+
+<li><a href="withdraw.html">💸 Withdraw Funds</a></li>
+
+<li><a href="transactions.html">📄 Transactions</a></li>
+
+<li><a href="profile.html">👤 Profile</a></li>
+
+<li><a href="settings.html">⚙️ Settings</a></li>
+
+<li><a href="support.html">❓ Support</a></li>
+
+<li><a href="index.html">🚪 Logout</a></li>
+
+</ul>
+
+</aside>
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h1>Deposit Funds</h1>
+
+<p>Fund your LendEarnWorld investment account securely.</p>
+
+</div>
+
+</header>
+
+<!-- ================= BALANCE ================= -->
+
+<section class="cards">
+
+<div class="card card-primary">
+
+<span>Available Balance</span>
+
+<h2>$5,200.00</h2>
+
+<p>Current balance available in your account.</p>
+
+</div>
+
+<div class="card">
+
+<span>Total Deposited</span>
+
+<h2>$20,000.00</h2>
+
+<p>Total deposits made to date.</p>
+
+</div>
+
+</section>
+
+<!-- ================= PAYMENT METHODS ================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<h2>Select Deposit Method</h2>
+
+<p>Choose your preferred funding option.</p>
+
+</div>
+
+<div class="payment-grid">
+
+<!-- Bank -->
+
+<div class="payment-card">
+
+<div class="payment-icon">🏦</div>
+
+<h3>Bank Transfer</h3>
+
+<p>
+
+Deposit directly into the official LendEarnWorld bank account.
+
+</p>
+
+<button class="btn-primary" onclick="showMethod('bank')">
+
+Continue
+
+</button>
+
+</div>
+
+<!-- Crypto -->
+
+<div class="payment-card">
+
+<div class="payment-icon">₿</div>
+
+<h3>Cryptocurrency</h3>
+
+<p>
+
+Deposit using Bitcoin, Ethereum, USDT or USDC.
+
+</p>
+
+<button class="btn-primary" onclick="showMethod('crypto')">
+
+Continue
+
+</button>
+
+</div>
+
+<!-- Card -->
+
+<div class="payment-card">
+
+<div class="payment-icon">💳</div>
+
+<h3>Debit / Credit Card</h3>
+
+<p>
+
+Visa, Mastercard and other supported cards.
+
+</p>
+
+<button class="btn-primary" onclick="showMethod('card')">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= BANK DETAILS ================= -->
+
+<div id="bank-method" class="payment-details" style="display:none;">
+
+<section class="panel">
+
+<h2>Bank Transfer Details</h2>
+
+<table class="activity-table">
+
+<tr>
+
+<td>Beneficiary</td>
+
+<td>LendEarnWorld Ltd.</td>
+
+</tr>
+
+<tr>
+
+<td>Bank</td>
+
+<td>Global Finance Bank</td>
+
+</tr>
+
+<tr>
+
+<td>Account Number</td>
+
+<td>1234567890</td>
+
+</tr>
+
+<tr>
+
+<td>SWIFT Code</td>
+
+<td>GLFBUS22</td>
+
+</tr>
+
+<tr>
+
+<td>Reference</td>
+
+<td>LEW-458271</td>
+
+</tr>
+
+</table>
+
+</section>
+
+</div>
+<!-- ================= CRYPTO PAYMENT ================= -->
+
+<div id="crypto-method" class="payment-details" style="display:none;">
+
+<section class="panel">
+
+<h2>Cryptocurrency Deposit</h2>
+
+<p>Select a cryptocurrency and send funds to the address below.</p>
+
+<br>
+
+<table class="activity-table">
+
+<tr>
+
+<td>Bitcoin (BTC)</td>
+
+<td>bc1q8hf4r9x8xxxxxx6d92axxxxxx</td>
+
+</tr>
+
+<tr>
+
+<td>Ethereum (ETH)</td>
+
+<td>0xA34F95E8A91xxxxxxxxxxxxx</td>
+
+</tr>
+
+<tr>
+
+<td>USDT (TRC20)</td>
+
+<td>TJ4Hr5YQ8xxxxxxxxxxxxxxxx</td>
+
+</tr>
+
+<tr>
+
+<td>USDC (ERC20)</td>
+
+<td>0xF8C3A76xxxxxxxxxxxxxxxx</td>
+
+</tr>
+
+</table>
+
+<br>
+
+<div class="notice">
+
+<strong>Important:</strong>
+
+Only send the selected cryptocurrency to the matching wallet address.
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= CARD PAYMENT ================= -->
+
+<div id="card-method" class="payment-details" style="display:none;">
+
+<section class="panel">
+
+<h2>Card Deposit</h2>
+
+<p>Complete the information below.</p>
+
+<br>
+
+<form>
+
+<div class="form-group">
+
+<label>Deposit Amount (USD)</label>
+
+<input type="number" placeholder="1000">
+
+</div>
+
+<br>
+
+<div class="form-group">
+
+<label>Cardholder Name</label>
+
+<input type="text" placeholder="John Doe">
+
+</div>
+
+<br>
+
+<div class="form-group">
+
+<label>Card Number</label>
+
+<input type="text" placeholder="1234 5678 9012 3456">
+
+</div>
+
+<br>
+
+<div class="form-group">
+
+<label>Expiry Date</label>
+
+<input type="text" placeholder="MM/YY">
+
+</div>
+
+<br>
+
+<div class="form-group">
+
+<label>CVV</label>
+
+<input type="password" placeholder="123">
+
+</div>
+
+<br>
+
+<button class="btn-primary">
+
+Proceed to Secure Checkout
+
+</button>
+
+</form>
+
+</section>
+
+</div>
+
+<!-- ================= DEPOSIT PROCESS ================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<h2>Deposit Process</h2>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeline-step">
+
+<div class="timeline-circle">1</div>
+
+<h4>Choose Method</h4>
+
+<p>Select Bank, Crypto or Card.</p>
+
+</div>
+
+<div class="timeline-step">
+
+<div class="timeline-circle">2</div>
+
+<h4>Make Payment</h4>
+
+<p>Send funds using the selected option.</p>
+
+</div>
+
+<div class="timeline-step">
+
+<div class="timeline-circle">3</div>
+
+<h4>Verification</h4>
+
+<p>Our finance team confirms receipt.</p>
+
+</div>
+
+<div class="timeline-step">
+
+<div class="timeline-circle">4</div>
+
+<h4>Funds Credited</h4>
+
+<p>Your account balance is updated.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= RECENT DEPOSITS ================= -->
+
+<section class="panel">
+
+<div class="panel-title">
+
+<h2>Recent Deposits</h2>
+
+</div>
+
+<table class="activity-table">
+
+<thead>
+
+<tr>
+
+<th>Reference</th>
+
+<th>Method</th>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>LEW-458271</td>
+
+<td>Bank Transfer</td>
+
+<td>$5,000.00</td>
+
+<td>Jul 28, 2026</td>
+
+<td><span class="badge success">Completed</span></td>
+
+</tr>
+
+<tr>
+
+<td>LEW-458192</td>
+
+<td>Bitcoin</td>
+
+<td>$2,000.00</td>
+
+<td>Jul 25, 2026</td>
+
+<td><span class="badge pending">Pending</span></td>
+
+</tr>
+
+<tr>
+
+<td>LEW-458041</td>
+
+<td>Visa</td>
+
+<td>$1,500.00</td>
+
+<td>Jul 20, 2026</td>
+
+<td><span class="badge success">Completed</span></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+</div>
+
+<script>
+
+function showMethod(method){
+
+document.getElementById('bank-method').style.display='none';
+document.getElementById('crypto-method').style.display='none';
+document.getElementById('card-method').style.display='none';
+
+document.getElementById(method+'-method').style.display='block';
+
+window.scrollTo({
+
+top:document.getElementById(method+'-method').offsetTop-80,
+
+behavior:'smooth'
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
