@@ -88,7 +88,7 @@
                     minlength="8" required>
             </div>
 
-            <!-- Hidden internal currency field -->
+            <!-- Internal currency field. Not visible to the user. -->
             <input type="hidden" id="depositCurrency"
                 name="depositCurrency" value="">
 
@@ -113,8 +113,10 @@
 
 <script>
 
+// ==========================================
 // COUNTRY DATA
-// Format: Country name, country code, currency, international dialing code
+// Format: Country name, country code, currency, dialing code
+// ==========================================
 
 const countries = [
     ["Afghanistan","AF","AFN","+93"],
@@ -315,14 +317,21 @@ const countries = [
 ];
 
 
+// ==========================================
 // GET FORM ELEMENTS
+// ==========================================
 
+const registerForm = document.getElementById("registerForm");
 const countrySelect = document.getElementById("country");
 const phoneInput = document.getElementById("phone");
 const currencyInput = document.getElementById("depositCurrency");
 
+let currentDialCode = "";
 
+
+// ==========================================
 // POPULATE COUNTRY DROPDOWN
+// ==========================================
 
 countries.forEach(function(country) {
     const option = document.createElement("option");
@@ -332,14 +341,15 @@ countries.forEach(function(country) {
 
     option.dataset.currency = country[2];
     option.dataset.dialCode = country[3];
+    option.dataset.countryName = country[0];
 
     countrySelect.appendChild(option);
 });
 
 
-// UPDATE PHONE CODE AND CURRENCY WHEN COUNTRY CHANGES
-
-let currentDialCode = "";
+// ==========================================
+// UPDATE PHONE CODE AND CURRENCY
+// ==========================================
 
 countrySelect.addEventListener("change", function() {
     const selectedOption = this.options[this.selectedIndex];
@@ -359,7 +369,9 @@ countrySelect.addEventListener("change", function() {
 });
 
 
-// KEEP THE COUNTRY CODE WHEN THE USER TYPES
+// ==========================================
+// KEEP COUNTRY CODE WHEN USER TYPES
+// ==========================================
 
 phoneInput.addEventListener("input", function() {
     if (!currentDialCode) return;
@@ -377,37 +389,86 @@ phoneInput.addEventListener("input", function() {
 });
 
 
-// VALIDATE AND SAVE REGISTRATION COUNTRY INFORMATION
+// ==========================================
+// REGISTER AND SAVE USER PROFILE
+// ==========================================
 
-document.getElementById("registerForm").addEventListener("submit", function(event) {
+registerForm.addEventListener("submit", function(event) {
     event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = phoneInput.value.trim();
 
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const country = countrySelect.value;
+    const countryCode = countrySelect.value;
     const selectedOption = countrySelect.options[countrySelect.selectedIndex];
 
     const currency = selectedOption.dataset.currency || "";
     const dialCode = selectedOption.dataset.dialCode || "";
+    const countryName = selectedOption.dataset.countryName || "";
 
-    if (!country || !currency) {
+    // Check required country information
+    if (!countryCode || !currency || !dialCode) {
         alert("Please select your country.");
         return;
     }
 
+    // Check password length
+    if (password.length < 8) {
+        alert("Your password must contain at least 8 characters.");
+        return;
+    }
+
+    // Check password confirmation
     if (password !== confirmPassword) {
         alert("Your passwords do not match.");
         return;
     }
 
-    // Save only non-password country information for this frontend demo.
-    localStorage.setItem("lewCountry", country);
-    localStorage.setItem("lewDepositCurrency", currency);
-    localStorage.setItem("lewPhoneCode", dialCode);
+    // Check phone number
+    const phoneDigits = phone.replace(/\D/g, "");
+    const dialDigits = dialCode.replace(/\D/g, "");
 
-    // Do not store passwords in browser storage.
-    window.location.href = "dashboard.html";
+    if (!phoneDigits.startsWith(dialDigits) ||
+        phoneDigits.length <= dialDigits.length) {
+        alert("Please enter a valid phone number.");
+        phoneInput.focus();
+        return;
+    }
+
+    // Save user profile information.
+    // Passwords are deliberately NOT saved.
+
+    const profile = {
+        fullName: fullName,
+        username: username,
+        email: email,
+        phone: phone,
+        country: countryCode,
+        countryName: countryName,
+        currency: currency,
+        phoneCode: dialCode
+    };
+
+    try {
+        localStorage.setItem("lewProfile", JSON.stringify(profile));
+
+        // Keep these separate keys for the other website pages.
+        localStorage.setItem("lewCountry", countryCode);
+        localStorage.setItem("lewDepositCurrency", currency);
+        localStorage.setItem("lewPhoneCode", dialCode);
+
+        // Continue to the dashboard.
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        alert("Your information could not be saved in this browser. Please check your browser storage settings.");
+        console.error("Registration storage error:", error);
+    }
 });
 
 </script>

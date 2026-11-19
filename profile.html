@@ -1,265 +1,576 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | LendEarnWorld</title>
 
-<title>Profile | LendEarnWorld</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .profile-page {
+            width: 100%;
+            max-width: 1250px;
+        }
 
+        .profile-intro {
+            margin-bottom: 25px;
+        }
+
+        .profile-intro h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--paper, #f5f1e8);
+        }
+
+        .profile-intro p {
+            color: var(--paper-dim, #b7b1a5);
+            line-height: 1.7;
+        }
+
+        .profile-panel {
+            background: var(--vault, #14233f);
+            border: 1px solid var(--rule, rgba(255,255,255,.14));
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .profile-panel h2 {
+            font-family: 'Fraunces', serif;
+            color: var(--paper, #f5f1e8);
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .profile-description {
+            color: var(--paper-dim, #b7b1a5);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .profile-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .profile-field {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .profile-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .profile-field label {
+            color: var(--paper, #f5f1e8);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-field input,
+        .profile-field select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--rule, rgba(255,255,255,.14));
+            background: #0f1b31;
+            color: white;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .profile-field input:focus,
+        .profile-field select:focus {
+            outline: none;
+            border-color: var(--brass, #c5a46d);
+        }
+
+        .profile-field input:disabled {
+            opacity: .75;
+            cursor: not-allowed;
+        }
+
+        .profile-field small {
+            color: var(--paper-dim, #b7b1a5);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .profile-save {
+            padding: 14px 24px;
+            background: var(--brass, #c5a46d);
+            color: #0b1424;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .profile-save:hover {
+            background: var(--brass-bright, #e0c38b);
+        }
+
+        .profile-message {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-top: 18px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .profile-message.success {
+            display: block;
+            background: rgba(47, 150, 105, .13);
+            border: 1px solid rgba(47, 150, 105, .4);
+            color: #9de0bd;
+        }
+
+        .profile-message.error {
+            display: block;
+            background: rgba(180, 70, 55, .13);
+            border: 1px solid rgba(180, 70, 55, .4);
+            color: #f0b5a9;
+        }
+
+        .profile-status-list {
+            display: grid;
+            gap: 0;
+        }
+
+        .profile-status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--rule, rgba(255,255,255,.14));
+        }
+
+        .profile-status-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-status-row span:first-child {
+            color: var(--paper-dim, #b7b1a5);
+            font-size: 14px;
+        }
+
+        .profile-status-value {
+            color: var(--paper, #f5f1e8);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .profile-status-pending {
+            color: var(--brass, #c5a46d);
+        }
+
+        .profile-notice {
+            background: rgba(217,184,114,.08);
+            border: 1px solid rgba(217,184,114,.25);
+            border-left: 4px solid var(--brass, #c5a46d);
+            border-radius: 9px;
+            padding: 18px;
+            margin-bottom: 25px;
+            color: var(--paper, #f5f1e8);
+            line-height: 1.7;
+        }
+
+        .profile-notice strong {
+            color: var(--brass, #c5a46d);
+        }
+
+        @media(max-width: 768px) {
+            .profile-form {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-field.full-width {
+                grid-column: auto;
+            }
+
+            .profile-panel {
+                padding: 20px;
+            }
+
+            .profile-intro h2 {
+                font-size: 27px;
+            }
+
+            .profile-status-row {
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="dashboard">
 
-<!-- Sidebar -->
+    <!-- SIDEBAR -->
 
-<aside class="sidebar">
+    <aside class="sidebar">
 
-<div class="brand">
-<span class="brand-dot"></span>
-<h2>LendEarnWorld</h2>
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <h2>LendEarnWorld</h2>
+        </div>
+
+        <p class="brand-subtitle">Investor Dashboard</p>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="deposit.html">Deposit Funds</a></li>
+            <li><a href="withdraw.html">Withdraw Funds</a></li>
+            <li><a href="transactions.html">Transactions</a></li>
+            <li class="active"><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>My Profile</h1>
+                <p>Manage your personal information and account details.</p>
+            </div>
+
+            <div class="user-box">
+                <div class="avatar">LW</div>
+                <div>
+                    <h3>My Account</h3>
+                    <span>Profile Centre</span>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="profile-page">
+
+            <section class="profile-intro">
+                <h2>Personal Profile</h2>
+                <p>
+                    Keep your personal information up to date.
+                    Your saved details will be used to identify
+                    your account within this demonstration website.
+                </p>
+            </section>
+
+            <div class="profile-notice">
+                <strong>Account information</strong>
+                <p>
+                    Please provide accurate information. Changes made
+                    here are saved in this browser only. A secure
+                    account database will be required before this
+                    website can support live customer accounts.
+                </p>
+            </div>
+
+            <!-- PERSONAL INFORMATION -->
+
+            <section class="profile-panel">
+
+                <h2>Personal Information</h2>
+
+                <p class="profile-description">
+                    Update your contact and personal details.
+                </p>
+
+                <form id="profileForm" class="profile-form">
+
+                    <div class="profile-field">
+                        <label for="fullName">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="profile-field">
+                        <label for="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                        >
+                    </div>
+
+                    <div class="profile-field">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="profile-field">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter your phone number"
+                            autocomplete="tel"
+                        >
+                    </div>
+
+                    <div class="profile-field">
+                        <label for="country">Registered Country</label>
+                        <input
+                            type="text"
+                            id="country"
+                            placeholder="Country selected during registration"
+                            disabled
+                        >
+                        <small>
+                            Your registered country is read from your
+                            registration information.
+                        </small>
+                    </div>
+
+                    <div class="profile-field">
+                        <label for="currency">Deposit Currency</label>
+                        <input
+                            type="text"
+                            id="currency"
+                            value="Not configured"
+                            disabled
+                        >
+                        <small>
+                            This is your internal deposit currency.
+                            Account balances are displayed in USD.
+                        </small>
+                    </div>
+
+                    <div class="profile-field full-width">
+                        <button type="submit" class="profile-save">
+                            Save Profile Changes
+                        </button>
+                    </div>
+
+                </form>
+
+                <div id="profileMessage" class="profile-message" role="status"></div>
+
+            </section>
+
+            <!-- ACCOUNT STATUS -->
+
+            <section class="profile-panel">
+
+                <h2>Account Status</h2>
+
+                <p class="profile-description">
+                    View the current information available for your account.
+                </p>
+
+                <div class="profile-status-list">
+
+                    <div class="profile-status-row">
+                        <span>Account Status</span>
+                        <span class="profile-status-value profile-status-pending">
+                            Not verified
+                        </span>
+                    </div>
+
+                    <div class="profile-status-row">
+                        <span>Email Verification</span>
+                        <span class="profile-status-value profile-status-pending">
+                            Not confirmed
+                        </span>
+                    </div>
+
+                    <div class="profile-status-row">
+                        <span>Phone Verification</span>
+                        <span class="profile-status-value profile-status-pending">
+                            Not confirmed
+                        </span>
+                    </div>
+
+                    <div class="profile-status-row">
+                        <span>KYC Status</span>
+                        <span class="profile-status-value profile-status-pending">
+                            Not started
+                        </span>
+                    </div>
+
+                    <div class="profile-status-row">
+                        <span>Account Currency</span>
+                        <span class="profile-status-value">USD</span>
+                    </div>
+
+                    <div class="profile-status-row">
+                        <span>Member Since</span>
+                        <span class="profile-status-value" id="memberSince">
+                            Not available
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- SECURITY INFORMATION -->
+
+            <section class="profile-panel">
+
+                <h2>Account Security</h2>
+
+                <p class="profile-description">
+                    Protect your account by keeping your login details private.
+                </p>
+
+                <div class="profile-notice">
+                    <strong>Password management is not connected yet.</strong>
+                    <p>
+                        Password changes will become available after
+                        secure account authentication is implemented.
+                        Never share your password with anyone.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
 </div>
 
-<p class="brand-subtitle">Investor Dashboard</p>
-
-<ul class="sidebar-menu">
-
-<li><a href="dashboard.html">🏠 Dashboard</a></li>
-
-<li><a href="portfolio.html">📊 Portfolio</a></li>
-
-<li><a href="deposit.html">💳 Deposit Funds</a></li>
-
-<li><a href="withdraw.html">💸 Withdraw Funds</a></li>
-
-<li><a href="transactions.html">📄 Transactions</a></li>
-
-<li class="active"><a href="profile.html">👤 Profile</a></li>
-
-<li><a href="settings.html">⚙️ Settings</a></li>
-
-<li><a href="support.html">❓ Support</a></li>
-
-<li><a href="index.html">🚪 Logout</a></li>
-
-</ul>
-
-</aside>
-
-<!-- Main Content -->
-
-<main class="content">
-
-<header class="topbar">
-
-<div>
-
-<h1>My Profile</h1>
-
-<p>Manage your personal information and account details.</p>
-
-</div>
-
-</header>
-
-<!-- Profile Card -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Personal Information</h2>
-
-</div>
-
-<form>
-
-<div class="form-group">
-
-<label>Full Name</label>
-
-<input type="text" value="John Doe">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Email Address</label>
-
-<input type="email" value="john@example.com">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Phone Number</label>
-
-<input type="text" value="+1 555 123 4567">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Country</label>
-
-<input type="text" value="United States">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Date of Birth</label>
-
-<input type="date">
-
-</div>
-
-<br>
-
-<button class="btn-primary">
-
-Save Changes
-
-</button>
-
-</form>
-
-</section>
-
-<!-- Security -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Security</h2>
-
-</div>
-
-<form>
-
-<div class="form-group">
-
-<label>Current Password</label>
-
-<input type="password">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>New Password</label>
-
-<input type="password">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Confirm Password</label>
-
-<input type="password">
-
-</div>
-
-<br>
-
-<button class="btn-primary">
-
-Update Password
-
-</button>
-
-</form>
-
-</section>
-
-<!-- Verification -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Account Status</h2>
-
-</div>
-
-<table class="activity-table">
-
-<tbody>
-
-<tr>
-
-<td>Account Status</td>
-
-<td><span class="badge success">Verified</span></td>
-
-</tr>
-
-<tr>
-
-<td>Email Verification</td>
-
-<td>Verified</td>
-
-</tr>
-
-<tr>
-
-<td>Phone Verification</td>
-
-<td>Verified</td>
-
-</tr>
-
-<tr>
-
-<td>KYC Status</td>
-
-<td>Approved</td>
-
-</tr>
-
-<tr>
-
-<td>Member Since</td>
-
-<td>July 2026</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</section>
-
-</main>
-
-</div>
+<script src="js/dashboard.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const profileForm = document.getElementById("profileForm");
+    const message = document.getElementById("profileMessage");
+
+    const countryCode = (
+        localStorage.getItem("lewCountry") || ""
+    ).trim().toUpperCase();
+
+    const currencyCode = (
+        localStorage.getItem("lewDepositCurrency") || ""
+    ).trim().toUpperCase();
+
+    function countryNameFromCode(code) {
+        if (!code) return "Not available";
+
+        try {
+            return new Intl.DisplayNames(
+                ["en"],
+                { type: "region" }
+            ).of(code) || code;
+        } catch (error) {
+            return code;
+        }
+    }
+
+    function readProfile() {
+        try {
+            return JSON.parse(
+                localStorage.getItem("lewProfile") || "{}"
+            );
+        } catch (error) {
+            return {};
+        }
+    }
+
+    const profile = readProfile();
+
+    document.getElementById("fullName").value =
+        profile.fullName || "";
+
+    document.getElementById("username").value =
+        profile.username || "";
+
+    document.getElementById("email").value =
+        profile.email || "";
+
+    document.getElementById("phone").value =
+        profile.phone || "";
+
+    document.getElementById("country").value =
+        countryNameFromCode(countryCode);
+
+    document.getElementById("currency").value =
+        currencyCode || "Not configured";
+
+    document.getElementById("memberSince").textContent =
+        profile.memberSince || "Not available";
+
+    profileForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const updatedProfile = {
+            fullName: document.getElementById("fullName").value.trim(),
+            username: document.getElementById("username").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            memberSince: profile.memberSince || ""
+        };
+
+        if (!updatedProfile.fullName || !updatedProfile.email) {
+            message.textContent =
+                "Please enter your full name and a valid email address.";
+
+            message.className = "profile-message error";
+            return;
+        }
+
+        try {
+            localStorage.setItem(
+                "lewProfile",
+                JSON.stringify(updatedProfile)
+            );
+
+            message.textContent =
+                "Your profile information has been saved successfully in this browser.";
+
+            message.className = "profile-message success";
+
+        } catch (error) {
+            message.textContent =
+                "Your profile could not be saved. Please check your browser storage settings.";
+
+            message.className = "profile-message error";
+        }
+    });
+
+});
+</script>
 
 </body>
-
 </html>

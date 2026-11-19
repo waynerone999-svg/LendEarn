@@ -1,215 +1,868 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Withdraw Funds | LendEarnWorld</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
+    <style>
+        /* WITHDRAWAL PAGE STYLES */
+
+        :root {
+            --withdraw-bg: #0b1424;
+            --withdraw-card: #14233f;
+            --withdraw-text: #f5f1e8;
+            --withdraw-muted: #b7b1a5;
+            --withdraw-gold: #c5a46d;
+            --withdraw-gold-light: #e0c38b;
+            --withdraw-border: rgba(255,255,255,.14);
+        }
+
+        .withdraw-page {
+            width: 100%;
+            max-width: 1250px;
+        }
+
+        /* SIDEBAR BRAND FIX */
+
+        .sidebar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .sidebar .brand-dot {
+            flex: 0 0 12px;
+        }
+
+        .sidebar .brand-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .sidebar .brand-text h2 {
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .sidebar .brand-subtitle {
+            display: block;
+            position: static;
+            width: auto;
+            margin: 5px 0 0;
+            line-height: 1.4;
+            white-space: normal;
+            font-size: 12px;
+        }
+
+        /* PAGE HEADER */
+
+        .withdraw-intro {
+            margin-bottom: 28px;
+        }
+
+        .withdraw-intro h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 36px;
+            color: var(--withdraw-text);
+            margin-bottom: 12px;
+        }
+
+        .withdraw-intro p {
+            color: var(--withdraw-muted);
+            line-height: 1.8;
+        }
+
+        /* BALANCE CARD */
+
+        .withdraw-balance {
+            background: var(--withdraw-card);
+            border: 1px solid var(--withdraw-border);
+            border-radius: 14px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .withdraw-balance span {
+            color: var(--withdraw-muted);
+            font-size: 15px;
+        }
+
+        .withdraw-balance h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 42px;
+            color: var(--withdraw-gold);
+            margin: 12px 0;
+        }
+
+        .withdraw-balance p {
+            color: var(--withdraw-muted);
+            line-height: 1.7;
+        }
+
+        /* NOTICE */
+
+        .withdraw-notice {
+            background: rgba(217,184,114,.08);
+            border: 1px solid rgba(217,184,114,.25);
+            border-left: 4px solid var(--withdraw-gold);
+            padding: 22px;
+            border-radius: 10px;
+            margin: 25px 0;
+            color: var(--withdraw-text);
+            line-height: 1.8;
+        }
+
+        .withdraw-notice strong {
+            display: block;
+            color: var(--withdraw-gold);
+            margin-bottom: 8px;
+        }
+
+        .withdraw-notice p {
+            margin-top: 8px;
+        }
+
+        /* FORM PANEL */
+
+        .withdraw-panel {
+            background: var(--withdraw-card);
+            border: 1px solid var(--withdraw-border);
+            border-radius: 14px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .withdraw-panel h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 27px;
+            color: var(--withdraw-text);
+            margin-bottom: 12px;
+        }
+
+        .withdraw-panel > p {
+            color: var(--withdraw-muted);
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .withdraw-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .withdraw-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .withdraw-form .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .withdraw-form label {
+            color: var(--withdraw-text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .withdraw-form input,
+        .withdraw-form select,
+        .withdraw-form textarea {
+            width: 100%;
+            padding: 14px;
+            background: #0f1b31;
+            color: white;
+            border: 1px solid var(--withdraw-border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .withdraw-form input:focus,
+        .withdraw-form select:focus,
+        .withdraw-form textarea:focus {
+            outline: none;
+            border-color: var(--withdraw-gold);
+        }
+
+        .withdraw-form input::placeholder,
+        .withdraw-form textarea::placeholder {
+            color: #8994a7;
+        }
+
+        .withdraw-form select option {
+            background: #0f1b31;
+            color: white;
+        }
+
+        .withdraw-submit {
+            padding: 15px 25px;
+            background: var(--withdraw-gold);
+            color: #0b1424;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .withdraw-submit:hover {
+            background: var(--withdraw-gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* HISTORY */
+
+        .history-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .withdraw-history {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .withdraw-history th {
+            text-align: left;
+            color: var(--withdraw-muted);
+            font-size: 13px;
+            padding: 15px;
+            border-bottom: 1px solid var(--withdraw-border);
+        }
+
+        .withdraw-history td {
+            padding: 16px 15px;
+            color: var(--withdraw-text);
+            font-size: 13px;
+            border-bottom: 1px solid var(--withdraw-border);
+        }
+
+        .withdraw-status {
+            color: var(--withdraw-gold);
+            font-weight: 600;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 30px !important;
+            color: var(--withdraw-muted) !important;
+        }
+
+        .withdraw-footnote {
+            color: var(--withdraw-muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 18px;
+        }
+
+        @media(max-width: 768px) {
+            .withdraw-intro h2 {
+                font-size: 29px;
+            }
+
+            .withdraw-form {
+                grid-template-columns: 1fr;
+            }
+
+            .withdraw-form .full-width {
+                grid-column: auto;
+            }
+
+            .withdraw-panel,
+            .withdraw-balance {
+                padding: 20px;
+            }
+
+            .withdraw-balance h2 {
+                font-size: 34px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="dashboard">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
         <div class="brand">
             <span class="brand-dot"></span>
-            <h2>LendEarnWorld</h2>
-        </div>
 
-        <p class="brand-subtitle">Investor Dashboard</p>
+            <div class="brand-text">
+                <h2>LendEarnWorld</h2>
+                <p class="brand-subtitle">Capital Participation Platform</p>
+            </div>
+        </div>
 
         <ul class="sidebar-menu">
 
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
 
-            <li><a href="portfolio.html">📊 Portfolio</a></li>
+            <li>
+                <a href="portfolio.html">Portfolio</a>
+            </li>
 
-            <li><a href="deposit.html">💳 Deposit Funds</a></li>
+            <li>
+                <a href="deposit.html">Deposit Funds</a>
+            </li>
 
-            <li class="active"><a href="withdraw.html">💸 Withdraw Funds</a></li>
+            <li class="active">
+                <a href="withdraw.html">Withdraw Funds</a>
+            </li>
 
-            <li><a href="transactions.html">📄 Transactions</a></li>
+            <li>
+                <a href="transactions.html">Transactions</a>
+            </li>
 
-            <li><a href="profile.html">👤 Profile</a></li>
+            <li>
+                <a href="profile.html">Profile</a>
+            </li>
 
-            <li><a href="settings.html">⚙️ Settings</a></li>
+            <li>
+                <a href="settings.html">Settings</a>
+            </li>
 
-            <li><a href="support.html">❓ Support</a></li>
+            <li>
+                <a href="support.html">Support</a>
+            </li>
 
-            <li><a href="index.html">🚪 Logout</a></li>
+            <li>
+                <a href="index.html">Logout</a>
+            </li>
 
         </ul>
 
     </aside>
 
-    <!-- Main Content -->
+
+    <!-- MAIN CONTENT -->
 
     <main class="content">
 
-        <header class="topbar">
+        <div class="topbar">
 
             <div>
-
                 <h1>Withdraw Funds</h1>
-
-                <p>Transfer available funds from your account.</p>
-
+                <p>Request a withdrawal from your LendEarnWorld account.</p>
             </div>
 
-        </header>
+            <div class="user-box">
+                <div class="avatar">LW</div>
 
-        <!-- Balance -->
+                <div>
+                    <h3>My Account</h3>
+                    <span>Withdrawal Centre</span>
+                </div>
+            </div>
 
-        <section class="cards">
+        </div>
 
-            <div class="card card-primary">
+
+        <div class="withdraw-page">
+
+            <!-- INTRODUCTION -->
+
+            <section class="withdraw-intro">
+
+                <h2>Withdraw Your Funds</h2>
+
+                <p>
+                    Submit a withdrawal request using your preferred
+                    payment method. All requests are subject to account
+                    balance checks and approval.
+                </p>
+
+            </section>
+
+
+            <!-- AVAILABLE BALANCE -->
+
+            <section class="withdraw-balance">
 
                 <span>Available Balance</span>
 
-                <h2>$5,200.00</h2>
+                <h2 id="availableBalance">— USD</h2>
 
-                <p>Funds currently available to withdraw.</p>
+                <p>
+                    Your confirmed available balance will appear here
+                    when account balance information is connected.
+                </p>
+
+            </section>
+
+
+            <!-- IMPORTANT NOTICE -->
+
+            <div class="withdraw-notice">
+
+                <strong>Important withdrawal information</strong>
+
+                <p>
+                    Withdrawal requests are subject to verification,
+                    available funds, applicable requirements and approval.
+                </p>
+
+                <p>
+                    Submitting a request does not mean that a withdrawal
+                    has been approved or paid. Your account balance must
+                    only be updated after the withdrawal has been properly
+                    reviewed and processed.
+                </p>
 
             </div>
 
-        </section>
 
-        <!-- Withdrawal Form -->
+            <!-- WITHDRAWAL FORM -->
 
-        <section class="panel">
-
-            <div class="panel-title">
+            <section class="withdraw-panel">
 
                 <h2>Request Withdrawal</h2>
 
-            </div>
+                <p>
+                    Enter your withdrawal amount and the destination
+                    where you would like to receive your funds.
+                </p>
 
-            <form>
+                <form class="withdraw-form" id="withdrawForm">
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label>Withdrawal Amount (USD)</label>
+                        <label for="withdrawAmount">
+                            Withdrawal Amount (USD)
+                        </label>
 
-                    <input type="number" placeholder="Enter amount">
+                        <input
+                            type="number"
+                            id="withdrawAmount"
+                            min="1"
+                            step="0.01"
+                            placeholder="Enter withdrawal amount"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="withdrawMethod">
+                            Withdrawal Method
+                        </label>
+
+                        <select id="withdrawMethod" required>
+
+                            <option value="">Select withdrawal method</option>
+
+                            <option value="Bank Transfer">
+                                Bank Transfer
+                            </option>
+
+                            <option value="Cryptocurrency">
+                                Cryptocurrency
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="destination">
+                            Destination Account / Wallet
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            placeholder="Enter your bank account or wallet address"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="accountName">
+                            Account Holder / Wallet Owner Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="accountName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="withdrawNotes">
+                            Additional Information (Optional)
+                        </label>
+
+                        <textarea
+                            id="withdrawNotes"
+                            rows="3"
+                            placeholder="Enter any additional information"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <button
+                            type="submit"
+                            class="withdraw-submit"
+                        >
+                            Submit Withdrawal Request
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <p class="withdraw-footnote">
+                    This demonstration form records a request only.
+                    It does not transfer funds, approve withdrawals,
+                    or change your account balance.
+                </p>
+
+            </section>
+
+
+            <!-- WITHDRAWAL HISTORY -->
+
+            <section class="withdraw-panel">
+
+                <h2>Recent Withdrawal Requests</h2>
+
+                <p>
+                    View the withdrawal requests submitted through
+                    this browser.
+                </p>
+
+                <div class="history-wrap">
+
+                    <table class="withdraw-history">
+
+                        <thead>
+
+                            <tr>
+                                <th>Reference</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="withdrawHistory">
+
+                            <tr>
+                                <td colspan="5" class="empty-history">
+                                    No withdrawal requests yet.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
-                <br>
+            </section>
 
-                <div class="form-group">
-
-                    <label>Withdrawal Method</label>
-
-                    <select>
-
-                        <option>Bank Transfer</option>
-
-                        <option>Cryptocurrency</option>
-
-                    </select>
-
-                </div>
-
-                <br>
-
-                <div class="form-group">
-
-                    <label>Destination Account / Wallet</label>
-
-                    <input type="text" placeholder="Enter bank account or wallet address">
-
-                </div>
-
-                <br>
-
-                <button type="submit" class="btn-primary">
-
-                    Submit Withdrawal
-
-                </button>
-
-            </form>
-
-        </section>
-
-        <!-- Withdrawal History -->
-
-        <section class="panel">
-
-            <div class="panel-title">
-
-                <h2>Recent Withdrawals</h2>
-
-            </div>
-
-            <table class="activity-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Date</th>
-
-                        <th>Amount</th>
-
-                        <th>Method</th>
-
-                        <th>Status</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td>Jul 25, 2026</td>
-
-                        <td>$800.00</td>
-
-                        <td>Bank Transfer</td>
-
-                        <td><span class="badge pending">Processing</span></td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>Jul 18, 2026</td>
-
-                        <td>$1,200.00</td>
-
-                        <td>Bank Transfer</td>
-
-                        <td><span class="badge success">Completed</span></td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </section>
+        </div>
 
     </main>
 
 </div>
 
-</body>
 
+<!-- WITHDRAWAL PAGE JAVASCRIPT -->
+
+<script src="js/dashboard.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const withdrawForm = document.getElementById("withdrawForm");
+
+    const withdrawHistory = document.getElementById("withdrawHistory");
+
+    const withdrawMethod = document.getElementById("withdrawMethod");
+
+    const destination = document.getElementById("destination");
+
+
+    /* CHANGE DESTINATION PLACEHOLDER */
+
+    withdrawMethod.addEventListener("change", function () {
+
+        if (this.value === "Bank Transfer") {
+
+            destination.placeholder =
+                "Enter your bank name and account number";
+
+        } else if (this.value === "Cryptocurrency") {
+
+            destination.placeholder =
+                "Enter your cryptocurrency wallet address";
+
+        } else {
+
+            destination.placeholder =
+                "Enter your bank account or wallet address";
+
+        }
+
+    });
+
+
+    /* GET SAVED WITHDRAWAL REQUESTS */
+
+    function getWithdrawals() {
+
+        try {
+
+            const saved = JSON.parse(
+                localStorage.getItem("lewWithdrawalRequests") || "[]"
+            );
+
+            return Array.isArray(saved) ? saved : [];
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+
+    /* DISPLAY WITHDRAWAL HISTORY */
+
+    function renderWithdrawals() {
+
+        withdrawHistory.replaceChildren();
+
+        const withdrawals = getWithdrawals();
+
+        if (withdrawals.length === 0) {
+
+            const row = document.createElement("tr");
+
+            const cell = document.createElement("td");
+
+            cell.colSpan = 5;
+
+            cell.className = "empty-history";
+
+            cell.textContent = "No withdrawal requests yet.";
+
+            row.appendChild(cell);
+
+            withdrawHistory.appendChild(row);
+
+            return;
+
+        }
+
+
+        withdrawals.forEach(function (withdrawal) {
+
+            const row = document.createElement("tr");
+
+            const values = [
+
+                withdrawal.reference,
+
+                new Date(withdrawal.date).toLocaleDateString(),
+
+                "$" + Number(withdrawal.amount).toFixed(2),
+
+                withdrawal.method,
+
+                withdrawal.status
+
+            ];
+
+
+            values.forEach(function (value, index) {
+
+                const cell = document.createElement("td");
+
+                cell.textContent = value || "—";
+
+                if (index === 4) {
+
+                    cell.className = "withdraw-status";
+
+                }
+
+                row.appendChild(cell);
+
+            });
+
+            withdrawHistory.appendChild(row);
+
+        });
+
+    }
+
+
+    /* SUBMIT WITHDRAWAL REQUEST */
+
+    withdrawForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+
+        const amount = Number(
+            document.getElementById("withdrawAmount").value
+        );
+
+        const method = withdrawMethod.value;
+
+        const destinationValue = destination.value.trim();
+
+        const accountName = document.getElementById("accountName").value.trim();
+
+        const notes = document.getElementById("withdrawNotes").value.trim();
+
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+
+            alert("Please enter a valid withdrawal amount.");
+
+            return;
+
+        }
+
+        if (!method) {
+
+            alert("Please select a withdrawal method.");
+
+            return;
+
+        }
+
+        if (!destinationValue || !accountName) {
+
+            alert("Please complete the destination and account name fields.");
+
+            return;
+
+        }
+
+
+        const reference =
+            "LEW-WD-" + Date.now().toString().slice(-9);
+
+
+        const request = {
+
+            reference: reference,
+
+            amount: amount,
+
+            currency: "USD",
+
+            method: method,
+
+            destination: destinationValue,
+
+            accountName: accountName,
+
+            notes: notes,
+
+            date: new Date().toISOString(),
+
+            status: "Pending Review"
+
+        };
+
+
+        const withdrawals = getWithdrawals();
+
+        withdrawals.unshift(request);
+
+
+        try {
+
+            localStorage.setItem(
+                "lewWithdrawalRequests",
+                JSON.stringify(withdrawals)
+            );
+
+        } catch (error) {
+
+            alert("Unable to save your request in this browser.");
+
+            return;
+
+        }
+
+
+        renderWithdrawals();
+
+        withdrawForm.reset();
+
+        destination.placeholder =
+            "Enter your bank account or wallet address";
+
+
+        alert(
+            "Your withdrawal request has been recorded.\n\n" +
+            "Reference: " + reference + "\n" +
+            "Amount: $" + amount.toFixed(2) + " USD\n" +
+            "Method: " + method + "\n" +
+            "Status: Pending Review\n\n" +
+            "This is not a payment confirmation. No funds have been transferred and your account balance has not changed."
+        );
+
+    });
+
+
+    /* LOAD HISTORY WHEN PAGE OPENS */
+
+    renderWithdrawals();
+
+});
+
+</script>
+<script src="js/account-balance.js"></script>
+</body>
 </html>

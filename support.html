@@ -1,29 +1,477 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Withdraw | LendEarnWorld</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | LendEarnWorld</title>
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
-
 <body>
 
-<div class="dashboard">
+<nav class="navbar">
+    <div class="container">
+        <a href="index.html" class="logo">
+            <span class="logo-dot"></span>
+            LendEarnWorld
+        </a>
 
-    <!-- Copy your sidebar here -->
+        <div class="nav-actions">
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+    </div>
+</nav>
 
-    <main class="content">
+<section class="auth-page">
+    <div class="auth-card register-card">
 
-        <h1>Withdraw Funds</h1>
+        <h1>Create Account</h1>
 
-        <p>This page is under construction.</p>
+        <p>Join LendEarnWorld and begin your journey with us.</p>
 
-    </main>
+        <form id="registerForm">
 
-</div>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName"
+                    placeholder="Enter your full name"
+                    autocomplete="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"
+                    placeholder="Choose a username"
+                    autocomplete="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email"
+                    placeholder="Enter your email address"
+                    autocomplete="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country of Residence</label>
+                <select id="country" name="country" required>
+                    <option value="">Select your country</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone"
+                    placeholder="Select your country first"
+                    autocomplete="tel" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    minlength="8" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                    minlength="8" required>
+            </div>
+
+            <!-- Internal currency field. Not visible to the user. -->
+            <input type="hidden" id="depositCurrency"
+                name="depositCurrency" value="">
+
+            <label class="terms">
+                <input type="checkbox" name="terms" required>
+                I agree to the Terms & Conditions.
+            </label>
+
+            <button type="submit" class="auth-btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+// ==========================================
+// COUNTRY DATA
+// Format: Country name, country code, currency, dialing code
+// ==========================================
+
+const countries = [
+    ["Afghanistan","AF","AFN","+93"],
+    ["Albania","AL","ALL","+355"],
+    ["Algeria","DZ","DZD","+213"],
+    ["Andorra","AD","EUR","+376"],
+    ["Angola","AO","AOA","+244"],
+    ["Antigua and Barbuda","AG","XCD","+1-268"],
+    ["Argentina","AR","ARS","+54"],
+    ["Armenia","AM","AMD","+374"],
+    ["Australia","AU","AUD","+61"],
+    ["Austria","AT","EUR","+43"],
+    ["Azerbaijan","AZ","AZN","+994"],
+    ["Bahamas","BS","BSD","+1-242"],
+    ["Bahrain","BH","BHD","+973"],
+    ["Bangladesh","BD","BDT","+880"],
+    ["Barbados","BB","BBD","+1-246"],
+    ["Belarus","BY","BYN","+375"],
+    ["Belgium","BE","EUR","+32"],
+    ["Belize","BZ","BZD","+501"],
+    ["Benin","BJ","XOF","+229"],
+    ["Bhutan","BT","BTN","+975"],
+    ["Bolivia","BO","BOB","+591"],
+    ["Bosnia and Herzegovina","BA","BAM","+387"],
+    ["Botswana","BW","BWP","+267"],
+    ["Brazil","BR","BRL","+55"],
+    ["Brunei","BN","BND","+673"],
+    ["Bulgaria","BG","EUR","+359"],
+    ["Burkina Faso","BF","XOF","+226"],
+    ["Burundi","BI","BIF","+257"],
+    ["Cabo Verde","CV","CVE","+238"],
+    ["Cambodia","KH","KHR","+855"],
+    ["Cameroon","CM","XAF","+237"],
+    ["Canada","CA","CAD","+1"],
+    ["Central African Republic","CF","XAF","+236"],
+    ["Chad","TD","XAF","+235"],
+    ["Chile","CL","CLP","+56"],
+    ["China","CN","CNY","+86"],
+    ["Colombia","CO","COP","+57"],
+    ["Comoros","KM","KMF","+269"],
+    ["Congo (Republic of the Congo)","CG","XAF","+242"],
+    ["Costa Rica","CR","CRC","+506"],
+    ["Cote d'Ivoire","CI","XOF","+225"],
+    ["Croatia","HR","EUR","+385"],
+    ["Cuba","CU","CUP","+53"],
+    ["Cyprus","CY","EUR","+357"],
+    ["Czechia","CZ","CZK","+420"],
+    ["Democratic Republic of the Congo","CD","CDF","+243"],
+    ["Denmark","DK","DKK","+45"],
+    ["Djibouti","DJ","DJF","+253"],
+    ["Dominica","DM","XCD","+1-767"],
+    ["Dominican Republic","DO","DOP","+1-809"],
+    ["Ecuador","EC","USD","+593"],
+    ["Egypt","EG","EGP","+20"],
+    ["El Salvador","SV","USD","+503"],
+    ["Equatorial Guinea","GQ","XAF","+240"],
+    ["Eritrea","ER","ERN","+291"],
+    ["Estonia","EE","EUR","+372"],
+    ["Eswatini","SZ","SZL","+268"],
+    ["Ethiopia","ET","ETB","+251"],
+    ["Fiji","FJ","FJD","+679"],
+    ["Finland","FI","EUR","+358"],
+    ["France","FR","EUR","+33"],
+    ["Gabon","GA","XAF","+241"],
+    ["Gambia","GM","GMD","+220"],
+    ["Georgia","GE","GEL","+995"],
+    ["Germany","DE","EUR","+49"],
+    ["Ghana","GH","GHS","+233"],
+    ["Greece","GR","EUR","+30"],
+    ["Grenada","GD","XCD","+1-473"],
+    ["Guatemala","GT","GTQ","+502"],
+    ["Guinea","GN","GNF","+224"],
+    ["Guinea-Bissau","GW","XOF","+245"],
+    ["Guyana","GY","GYD","+592"],
+    ["Haiti","HT","HTG","+509"],
+    ["Honduras","HN","HNL","+504"],
+    ["Hungary","HU","HUF","+36"],
+    ["Iceland","IS","ISK","+354"],
+    ["India","IN","INR","+91"],
+    ["Indonesia","ID","IDR","+62"],
+    ["Iran","IR","IRR","+98"],
+    ["Iraq","IQ","IQD","+964"],
+    ["Ireland","IE","EUR","+353"],
+    ["Israel","IL","ILS","+972"],
+    ["Italy","IT","EUR","+39"],
+    ["Jamaica","JM","JMD","+1-876"],
+    ["Japan","JP","JPY","+81"],
+    ["Jordan","JO","JOD","+962"],
+    ["Kazakhstan","KZ","KZT","+7"],
+    ["Kenya","KE","KES","+254"],
+    ["Kiribati","KI","AUD","+686"],
+    ["Kuwait","KW","KWD","+965"],
+    ["Kyrgyzstan","KG","KGS","+996"],
+    ["Laos","LA","LAK","+856"],
+    ["Latvia","LV","EUR","+371"],
+    ["Lebanon","LB","LBP","+961"],
+    ["Lesotho","LS","LSL","+266"],
+    ["Liberia","LR","LRD","+231"],
+    ["Libya","LY","LYD","+218"],
+    ["Liechtenstein","LI","CHF","+423"],
+    ["Lithuania","LT","EUR","+370"],
+    ["Luxembourg","LU","EUR","+352"],
+    ["Madagascar","MG","MGA","+261"],
+    ["Malawi","MW","MWK","+265"],
+    ["Malaysia","MY","MYR","+60"],
+    ["Maldives","MV","MVR","+960"],
+    ["Mali","ML","XOF","+223"],
+    ["Malta","MT","EUR","+356"],
+    ["Marshall Islands","MH","USD","+692"],
+    ["Mauritania","MR","MRU","+222"],
+    ["Mauritius","MU","MUR","+230"],
+    ["Mexico","MX","MXN","+52"],
+    ["Micronesia","FM","USD","+691"],
+    ["Moldova","MD","MDL","+373"],
+    ["Monaco","MC","EUR","+377"],
+    ["Mongolia","MN","MNT","+976"],
+    ["Montenegro","ME","EUR","+382"],
+    ["Morocco","MA","MAD","+212"],
+    ["Mozambique","MZ","MZN","+258"],
+    ["Myanmar","MM","MMK","+95"],
+    ["Namibia","NA","NAD","+264"],
+    ["Nauru","NR","AUD","+674"],
+    ["Nepal","NP","NPR","+977"],
+    ["Netherlands","NL","EUR","+31"],
+    ["New Zealand","NZ","NZD","+64"],
+    ["Nicaragua","NI","NIO","+505"],
+    ["Niger","NE","XOF","+227"],
+    ["Nigeria","NG","NGN","+234"],
+    ["North Korea","KP","KPW","+850"],
+    ["North Macedonia","MK","MKD","+389"],
+    ["Norway","NO","NOK","+47"],
+    ["Oman","OM","OMR","+968"],
+    ["Pakistan","PK","PKR","+92"],
+    ["Palau","PW","USD","+680"],
+    ["Palestine","PS","ILS","+970"],
+    ["Panama","PA","PAB","+507"],
+    ["Papua New Guinea","PG","PGK","+675"],
+    ["Paraguay","PY","PYG","+595"],
+    ["Peru","PE","PEN","+51"],
+    ["Philippines","PH","PHP","+63"],
+    ["Poland","PL","PLN","+48"],
+    ["Portugal","PT","EUR","+351"],
+    ["Qatar","QA","QAR","+974"],
+    ["Romania","RO","RON","+40"],
+    ["Russia","RU","RUB","+7"],
+    ["Rwanda","RW","RWF","+250"],
+    ["Saint Kitts and Nevis","KN","XCD","+1-869"],
+    ["Saint Lucia","LC","XCD","+1-758"],
+    ["Saint Vincent and the Grenadines","VC","XCD","+1-784"],
+    ["Samoa","WS","WST","+685"],
+    ["San Marino","SM","EUR","+378"],
+    ["Sao Tome and Principe","ST","STN","+239"],
+    ["Saudi Arabia","SA","SAR","+966"],
+    ["Senegal","SN","XOF","+221"],
+    ["Serbia","RS","RSD","+381"],
+    ["Seychelles","SC","SCR","+248"],
+    ["Sierra Leone","SL","SLE","+232"],
+    ["Singapore","SG","SGD","+65"],
+    ["Slovakia","SK","EUR","+421"],
+    ["Slovenia","SI","EUR","+386"],
+    ["Solomon Islands","SB","SBD","+677"],
+    ["Somalia","SO","SOS","+252"],
+    ["South Africa","ZA","ZAR","+27"],
+    ["South Korea","KR","KRW","+82"],
+    ["South Sudan","SS","SSP","+211"],
+    ["Spain","ES","EUR","+34"],
+    ["Sri Lanka","LK","LKR","+94"],
+    ["Sudan","SD","SDG","+249"],
+    ["Suriname","SR","SRD","+597"],
+    ["Sweden","SE","SEK","+46"],
+    ["Switzerland","CH","CHF","+41"],
+    ["Syria","SY","SYP","+963"],
+    ["Tajikistan","TJ","TJS","+992"],
+    ["Tanzania","TZ","TZS","+255"],
+    ["Thailand","TH","THB","+66"],
+    ["Timor-Leste","TL","USD","+670"],
+    ["Togo","TG","XOF","+228"],
+    ["Tonga","TO","TOP","+676"],
+    ["Trinidad and Tobago","TT","TTD","+1-868"],
+    ["Tunisia","TN","TND","+216"],
+    ["Turkey","TR","TRY","+90"],
+    ["Turkmenistan","TM","TMT","+993"],
+    ["Tuvalu","TV","AUD","+688"],
+    ["Uganda","UG","UGX","+256"],
+    ["Ukraine","UA","UAH","+380"],
+    ["United Arab Emirates","AE","AED","+971"],
+    ["United Kingdom","GB","GBP","+44"],
+    ["United States","US","USD","+1"],
+    ["Uruguay","UY","UYU","+598"],
+    ["Uzbekistan","UZ","UZS","+998"],
+    ["Vanuatu","VU","VUV","+678"],
+    ["Vatican City","VA","EUR","+39"],
+    ["Venezuela","VE","VES","+58"],
+    ["Vietnam","VN","VND","+84"],
+    ["Yemen","YE","YER","+967"],
+    ["Zambia","ZM","ZMW","+260"],
+    ["Zimbabwe","ZW","ZWG","+263"]
+];
+
+
+// ==========================================
+// GET FORM ELEMENTS
+// ==========================================
+
+const registerForm = document.getElementById("registerForm");
+const countrySelect = document.getElementById("country");
+const phoneInput = document.getElementById("phone");
+const currencyInput = document.getElementById("depositCurrency");
+
+let currentDialCode = "";
+
+
+// ==========================================
+// POPULATE COUNTRY DROPDOWN
+// ==========================================
+
+countries.forEach(function(country) {
+    const option = document.createElement("option");
+
+    option.value = country[1];
+    option.textContent = country[0];
+
+    option.dataset.currency = country[2];
+    option.dataset.dialCode = country[3];
+    option.dataset.countryName = country[0];
+
+    countrySelect.appendChild(option);
+});
+
+
+// ==========================================
+// UPDATE PHONE CODE AND CURRENCY
+// ==========================================
+
+countrySelect.addEventListener("change", function() {
+    const selectedOption = this.options[this.selectedIndex];
+
+    currentDialCode = selectedOption.dataset.dialCode || "";
+    const currency = selectedOption.dataset.currency || "";
+
+    currencyInput.value = currency;
+
+    phoneInput.value = currentDialCode
+        ? currentDialCode + " "
+        : "";
+
+    phoneInput.placeholder = currentDialCode
+        ? "Enter your phone number"
+        : "Select your country first";
+});
+
+
+// ==========================================
+// KEEP COUNTRY CODE WHEN USER TYPES
+// ==========================================
+
+phoneInput.addEventListener("input", function() {
+    if (!currentDialCode) return;
+
+    if (!phoneInput.value.startsWith(currentDialCode)) {
+        const digits = phoneInput.value.replace(/\D/g, "");
+        const codeDigits = currentDialCode.replace(/\D/g, "");
+
+        const numberDigits = digits.startsWith(codeDigits)
+            ? digits.slice(codeDigits.length)
+            : digits;
+
+        phoneInput.value = currentDialCode + " " + numberDigits;
+    }
+});
+
+
+// ==========================================
+// REGISTER AND SAVE USER PROFILE
+// ==========================================
+
+registerForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = phoneInput.value.trim();
+
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    const countryCode = countrySelect.value;
+    const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+
+    const currency = selectedOption.dataset.currency || "";
+    const dialCode = selectedOption.dataset.dialCode || "";
+    const countryName = selectedOption.dataset.countryName || "";
+
+    // Check required country information
+    if (!countryCode || !currency || !dialCode) {
+        alert("Please select your country.");
+        return;
+    }
+
+    // Check password length
+    if (password.length < 8) {
+        alert("Your password must contain at least 8 characters.");
+        return;
+    }
+
+    // Check password confirmation
+    if (password !== confirmPassword) {
+        alert("Your passwords do not match.");
+        return;
+    }
+
+    // Check phone number
+    const phoneDigits = phone.replace(/\D/g, "");
+    const dialDigits = dialCode.replace(/\D/g, "");
+
+    if (!phoneDigits.startsWith(dialDigits) ||
+        phoneDigits.length <= dialDigits.length) {
+        alert("Please enter a valid phone number.");
+        phoneInput.focus();
+        return;
+    }
+
+    // Save user profile information.
+    // Passwords are deliberately NOT saved.
+
+    const profile = {
+        fullName: fullName,
+        username: username,
+        email: email,
+        phone: phone,
+        country: countryCode,
+        countryName: countryName,
+        currency: currency,
+        phoneCode: dialCode
+    };
+
+    try {
+        localStorage.setItem("lewProfile", JSON.stringify(profile));
+
+        // Keep these separate keys for the other website pages.
+        localStorage.setItem("lewCountry", countryCode);
+        localStorage.setItem("lewDepositCurrency", currency);
+        localStorage.setItem("lewPhoneCode", dialCode);
+
+        // Continue to the dashboard.
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        alert("Your information could not be saved in this browser. Please check your browser storage settings.");
+        console.error("Registration storage error:", error);
+    }
+});
+
+</script>
 
 </body>
 </html>
