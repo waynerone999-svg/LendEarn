@@ -975,3 +975,119 @@ margin-bottom:25px;
     }
 
 }
+/* MOBILE SIDEBAR MENU BUTTON */
+.menu-toggle {
+    display: none;
+    background: #d4af37;
+    color: #0b1730;
+    border: none;
+    padding: 10px 14px;
+    font-size: 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: inline-block;
+    }
+}
+
+/* MOBILE SIDEBAR OPEN STATE */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.sidebar-open {
+        left: 0;
+    }
+}
+
+/* KEEP MENU BUTTON ABOVE THE SIDEBAR */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: inline-block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1101;
+    }
+
+    .sidebar {
+        z-index: 1100;
+    }
+
+}
+
+/* WELCOME SECTION */
+.welcome-notice {
+    padding: 28px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+}
+
+.welcome-notice h2 {
+    color: var(--gold, #d4af37);
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+
+.welcome-notice p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.welcome-deposit-btn {
+    display: inline-block;
+    background: #d4af37;
+    color: #101a2d;
+    padding: 13px 24px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: 0.3s ease;
+}
+
+.welcome-deposit-btn:hover {
+    background: #f0c94d;
+    transform: translateY(-2px);
+}
+
+.welcome-note {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 15px;
+}
+/* DEPOSIT WELCOME SECTION */
+
+.deposit-welcome {
+    padding: 28px;
+    margin-bottom: 25px;
+}
+
+.deposit-welcome h2 {
+    color: var(--gold, #d4af37);
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+
+.deposit-welcome p {
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.deposit-welcome .notice {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    line-height: 1.7;
+}

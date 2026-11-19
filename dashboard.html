@@ -1,16 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard | LendEarnWorld</title>
 
-    <!-- Google Fonts -->
+    <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -25,240 +24,266 @@
 
     <div class="dashboard">
 
-        <!-- ================= SIDEBAR ================= -->
-
+        <!-- SIDEBAR -->
         <aside class="sidebar">
 
             <div class="brand">
-
                 <span class="brand-dot"></span>
-
                 <h2>LendEarnWorld</h2>
-
             </div>
 
-            <p class="brand-subtitle">
-
-                Investor Dashboard
-
-            </p>
+            <p class="brand-subtitle">Investor Dashboard</p>
 
             <ul class="sidebar-menu">
 
                 <li class="active">
-
                     <a href="dashboard.html">🏠 Dashboard</a>
-
                 </li>
 
-
                 <li>
-
                     <a href="portfolio.html">📊 Portfolio</a>
-
                 </li>
 
                 <li>
-
                     <a href="deposit.html">💳 Deposit Funds</a>
-
                 </li>
 
                 <li>
-
                     <a href="withdraw.html">💸 Withdraw Funds</a>
-
                 </li>
 
                 <li>
-
                     <a href="transactions.html">📄 Transactions</a>
-
                 </li>
 
                 <li>
-
                     <a href="profile.html">👤 Profile</a>
-
                 </li>
 
                 <li>
-
                     <a href="settings.html">⚙️ Settings</a>
-
                 </li>
 
                 <li>
-
                     <a href="support.html">❓ Support</a>
-
                 </li>
+
                 <li>
-
                     <a href="index.html">🚪 Logout</a>
-
                 </li>
 
             </ul>
 
         </aside>
 
-        <!-- ================= MAIN CONTENT ================= -->
 
+        <!-- MAIN CONTENT -->
         <main class="content">
 
-            <!-- ================= TOPBAR ================= -->
 
+            <!-- TOPBAR -->
             <header class="topbar">
+
+                <button
+                    class="menu-toggle"
+                    id="menuToggle"
+                    type="button"
+                    aria-label="Open menu">
+
+                    ☰
+
+                </button>
 
                 <div>
 
-                    <h1>
-
-                        Welcome Back, John 👋
-
-                    </h1>
+                    <h1>Welcome to LendEarnWorld 👋</h1>
 
                     <p>
-
-                        Here's an overview of your LendEarnWorld investment account.
-
+                        Here's an overview of your LendEarnWorld account.
                     </p>
 
                 </div>
 
                 <div class="user-box">
 
-                    <div class="avatar">
-
-                        JD
-
-                    </div>
+                    <div class="avatar">LW</div>
 
                     <div>
-
-                        <h3>John Doe</h3>
-
-                        <span>Verified Investor</span>
-
+                        <h3>My Account</h3>
+                        <span>Account Dashboard</span>
                     </div>
 
                 </div>
 
             </header>
 
-            <!-- ================= SUMMARY CARDS ================= -->
 
+            
+<!-- WELCOME MESSAGE -->
+<div class="notice welcome-notice" role="note">
+
+    <h2>Welcome to LendEarnWorld! 👋</h2>
+
+    <p>
+        We're delighted to have you with us. Your journey towards
+        smarter capital participation starts here.
+    </p>
+
+    <p>
+        At LendEarnWorld, you provide funds to our platform, and
+        we manage capital through our operating arrangements with
+        other firms. Your account dashboard will help you follow
+        your confirmed deposits and available account information.
+    </p>
+
+    <p>
+        Ready to get started? Make your first deposit and take
+        the next step in your LendEarnWorld journey.
+    </p>
+
+    <a href="deposit.html" class="welcome-deposit-btn">
+        Make Your First Deposit →
+    </a>
+
+    <p class="welcome-note">
+        Your account balances will appear after your deposit
+        has been successfully verified.
+    </p>
+
+</div>
+
+
+
+            <!-- SUMMARY CARDS -->
             <section class="cards">
 
                 <div class="card card-primary">
 
                     <span>Total Portfolio Value</span>
 
-                    <h2>$18,460.00</h2>
+                    <h2>$0.00</h2>
 
-                    <p>Current value of your investment account.</p>
+                    <p>
+                        Available after your first confirmed deposit.
+                    </p>
 
                 </div>
+
 
                 <div class="card">
 
                     <span>Available Balance</span>
 
-                    <h2>$5,200.00</h2>
+                    <h2>$0.00</h2>
 
-                    <p>Available for withdrawal.</p>
+                    <p>
+                        Your balance will appear here.
+                    </p>
 
                 </div>
+
 
                 <div class="card">
 
                     <span>Managed Capital</span>
 
-                    <h2>$12,500.00</h2>
+                    <h2>$0.00</h2>
 
-                    <p>Capital currently managed by LendEarnWorld.</p>
+                    <p>
+                        Shown when your funds are confirmed and managed.
+                    </p>
 
                 </div>
+
 
                 <div class="card">
 
                     <span>Next Distribution</span>
 
-                    <h2>18 Hours</h2>
+                    <h2>$0.00</h2>
 
-                    <p>Estimated time until the next distribution.</p>
+                    <p>
+                        Updates will appear when applicable.
+                    </p>
 
                 </div>
 
             </section>
 
-            <!-- ================= QUICK ACTIONS ================= -->
 
-            <a href="deposit.html" class="action-box">
+            <!-- QUICK ACTIONS -->
+            <section class="quick-actions">
 
-                <h3>💳 Deposit Funds</h3>
+                <a href="deposit.html" class="action-box">
 
-                <p>
-                    Add funds to your LendEarnWorld account.
-                </p>
+                    <h3>💳 Deposit Funds</h3>
 
-            </a>
+                    <p>
+                        Add funds to your LendEarnWorld account.
+                    </p>
 
-            <a href="withdraw.html" class="action-box">
+                </a>
 
-                <h3>💸 Withdraw Funds</h3>
 
-                <p>Transfer your available balance.</p>
+                <a href="withdraw.html" class="action-box">
 
-            </a>
+                    <h3>💸 Withdraw Funds</h3>
 
-            <a href="portfolio.html" class="action-box">
+                    <p>
+                        View the withdrawal options for your account.
+                    </p>
 
-                <h3>📊 Portfolio</h3>
+                </a>
 
-                <p>View your managed capital.</p>
 
-            </a>
+                <a href="portfolio.html" class="action-box">
 
-            <a href="portfolio.html" class="action-box">
+                    <h3>📊 Portfolio</h3>
 
-                <h3>📊 Portfolio</h3>
+                    <p>
+                        View your capital managed by LendEarnWorld.
+                    </p>
 
-                <p>View your managed capital.</p>
+                </a>
 
-            </a>
-            <a href="transactions.html" class="action-box">
 
-                <h3>📄 Transactions</h3>
+                <a href="transactions.html" class="action-box">
 
-                <p>Review your account history.</p>
+                    <h3>📄 Transactions</h3>
 
-            </a>
+                    <p>
+                        Review your account transaction history.
+                    </p>
+
+                </a>
+
             </section>
 
-            <!-- ================= PERFORMANCE ================= -->
 
+            <!-- PORTFOLIO INFORMATION -->
             <section class="grid">
 
+
+                <!-- PORTFOLIO PERFORMANCE -->
                 <div class="panel">
 
                     <div class="panel-title">
 
                         <h2>Portfolio Performance</h2>
 
-                        <span>Illustrative Data</span>
-
                     </div>
 
                     <div class="chart-placeholder">
 
-                        Portfolio Growth Chart
+                        Portfolio information will appear here after
+                        your first successful deposit.
 
                     </div>
 
                 </div>
 
+
+                <!-- CAPITAL ALLOCATION -->
                 <div class="panel">
 
                     <div class="panel-title">
@@ -267,59 +292,24 @@
 
                     </div>
 
-                    <div class="allocation">
+                    <p style="color:var(--text);">
 
-                        <div class="allocation-row">
+                        Your capital allocation information will appear
+                        here when your account has confirmed funds.
 
-                            <span>Managed Investment Pool</span>
-
-                            <strong>70%</strong>
-
-                        </div>
-
-                        <div class="progress">
-
-                            <div style="width:70%"></div>
-
-                        </div>
-
-                        <div class="allocation-row">
-
-                            <span>Liquidity Reserve</span>
-
-                            <strong>20%</strong>
-
-                        </div>
-
-                        <div class="progress">
-
-                            <div style="width:20%"></div>
-
-                        </div>
-
-                        <div class="allocation-row">
-
-                            <span>Growth Reserve</span>
-
-                            <strong>10%</strong>
-
-                        </div>
-
-                        <div class="progress">
-
-                            <div style="width:10%"></div>
-
-                        </div>
-
-                    </div>
+                    </p>
 
                 </div>
 
-            </section>
-            <!-- ================= ACCOUNT SUMMARY ================= -->
 
+            </section>
+
+
+            <!-- ACCOUNT SUMMARY AND ANNOUNCEMENTS -->
             <section class="grid">
 
+
+                <!-- ACCOUNT SUMMARY -->
                 <div class="panel">
 
                     <div class="panel-title">
@@ -334,31 +324,34 @@
 
                             <span>Total Deposited</span>
 
-                            <strong>$20,000.00</strong>
+                            <strong>—</strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
                             <span>Current Portfolio Value</span>
 
-                            <strong>$18,460.00</strong>
+                            <strong>—</strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
                             <span>Managed Capital</span>
 
-                            <strong>$12,500.00</strong>
+                            <strong>—</strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
                             <span>Available Balance</span>
 
-                            <strong>$5,200.00</strong>
+                            <strong>—</strong>
 
                         </div>
 
@@ -366,6 +359,8 @@
 
                 </div>
 
+
+                <!-- ANNOUNCEMENTS -->
                 <div class="panel">
 
                     <div class="panel-title">
@@ -374,25 +369,31 @@
 
                     </div>
 
+
                     <div class="announcement">
 
-                        <h3>Capital Allocation Complete</h3>
+                        <h3>Capital Management</h3>
 
                         <p>
 
-                            Your funds have been added to the managed investment pool.
+                            LendEarnWorld manages funds provided to
+                            the platform in accordance with its
+                            operating arrangements.
 
                         </p>
 
                     </div>
 
+
                     <div class="announcement">
 
-                        <h3>Next Distribution</h3>
+                        <h3>Account Updates</h3>
 
                         <p>
 
-                            Your next distribution is estimated in approximately 18 hours.
+                            Account updates and distribution information
+                            will be displayed here when connected to
+                            the live platform.
 
                         </p>
 
@@ -400,10 +401,11 @@
 
                 </div>
 
+
             </section>
 
-            <!-- ================= RECENT TRANSACTIONS ================= -->
 
+            <!-- RECENT TRANSACTIONS -->
             <section class="panel">
 
                 <div class="panel-title">
@@ -413,6 +415,7 @@
                     <a href="transactions.html">View All</a>
 
                 </div>
+
 
                 <table class="activity-table">
 
@@ -432,53 +435,17 @@
 
                     </thead>
 
+
                     <tbody>
 
                         <tr>
 
-                            <td>Jul 28, 2026</td>
+                            <td colspan="4" style="text-align:center;">
 
-                            <td>Deposit</td>
+                                No transactions to display yet.
+                                Your confirmed deposits will appear here.
 
-                            <td>$5,000.00</td>
-
-                            <td><span class="badge success">Completed</span></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Jul 27, 2026</td>
-
-                            <td>Distribution</td>
-
-                            <td class="green">+$320.00</td>
-
-                            <td><span class="badge success">Paid</span></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Jul 26, 2026</td>
-
-                            <td>Withdrawal</td>
-
-                            <td>$800.00</td>
-
-                            <td><span class="badge pending">Pending</span></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Jul 25, 2026</td>
-
-                            <td>Capital Allocation</td>
-
-                            <td>$2,500.00</td>
-
-                            <td><span class="badge active">Completed</span></td>
+                            </td>
 
                         </tr>
 
@@ -488,10 +455,12 @@
 
             </section>
 
-            <!-- ================= ACCOUNT STATUS ================= -->
 
+            <!-- ACCOUNT STATUS AND QUICK INFORMATION -->
             <section class="grid">
 
+
+                <!-- ACCOUNT STATUS -->
                 <div class="panel">
 
                     <div class="panel-title">
@@ -506,31 +475,34 @@
 
                             <h3>Verification</h3>
 
-                            <p class="green">Verified</p>
+                            <p>Not started</p>
 
                         </div>
+
 
                         <div class="status-card">
 
                             <h3>Investor Level</h3>
 
-                            <p>Gold</p>
+                            <p>Not assigned</p>
 
                         </div>
+
 
                         <div class="status-card">
 
                             <h3>Security</h3>
 
-                            <p>2FA Enabled</p>
+                            <p>Account settings</p>
 
                         </div>
+
 
                         <div class="status-card">
 
                             <h3>Member Since</h3>
 
-                            <p>July 2026</p>
+                            <p>—</p>
 
                         </div>
 
@@ -538,6 +510,8 @@
 
                 </div>
 
+
+                <!-- QUICK INFORMATION -->
                 <div class="panel">
 
                     <div class="panel-title">
@@ -552,25 +526,30 @@
 
                             <span>Distribution Schedule</span>
 
-                            <strong>Every 48 Hours</strong>
+                            <strong>Not available yet</strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
                             <span>Portfolio Status</span>
 
-                            <strong class="green">Active</strong>
+                            <strong>Awaiting Deposit</strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
                             <span>Support</span>
 
-                            <strong>24/7</strong>
+                            <strong>
+                                <a href="support.html">Contact Support</a>
+                            </strong>
 
                         </div>
+
 
                         <div class="summary-item">
 
@@ -584,11 +563,17 @@
 
                 </div>
 
+
             </section>
+
 
         </main>
 
     </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="js/dashboard.js"></script>
 
 </body>
 

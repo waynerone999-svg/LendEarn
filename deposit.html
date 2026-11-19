@@ -1,19 +1,131 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Funds | LendEarnWorld</title>
 
-<title>Deposit Funds | LendEarnWorld</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .deposit-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .deposit-method-card {
+            padding: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .deposit-method-card h3 {
+            margin: 12px 0;
+        }
+
+        .deposit-method-card p {
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .deposit-method-icon {
+            font-size: 35px;
+        }
+
+        .deposit-form-panel {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .deposit-form-panel.active {
+            display: block;
+        }
+
+        .deposit-form {
+            max-width: 650px;
+        }
+
+        .deposit-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .deposit-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .deposit-form input,
+        .deposit-form select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5d5d5;
+            border-radius: 7px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .deposit-form button {
+            margin-top: 10px;
+        }
+
+        .deposit-notice {
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.7;
+            margin: 20px 0;
+            background: rgba(212, 175, 55, 0.10);
+        }
+
+        .method-button {
+            cursor: pointer;
+        }
+
+        .method-button.selected {
+            outline: 2px solid #d4af37;
+        }
+
+        .deposit-status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: rgba(212, 175, 55, 0.15);
+        }
+
+        .empty-deposits {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .currency-display {
+            font-weight: 700;
+            margin-top: 8px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .deposit-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .activity-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
 
 </head>
 
@@ -21,525 +133,766 @@
 
 <div class="dashboard">
 
-<!-- ================= SIDEBAR ================= -->
+    <!-- SIDEBAR -->
 
-<aside class="sidebar">
+    <aside class="sidebar">
 
-<div class="brand">
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <h2>LendEarnWorld</h2>
+        </div>
 
-<span class="brand-dot"></span>
+        <p class="brand-subtitle">Investor Dashboard</p>
 
-<h2>LendEarnWorld</h2>
+        <ul class="sidebar-menu">
+
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+            <li><a href="portfolio.html">📊 Portfolio</a></li>
+
+            <li class="active">
+                <a href="deposit.html">💳 Deposit Funds</a>
+            </li>
+
+            <li><a href="withdraw.html">💸 Withdraw Funds</a></li>
+
+            <li><a href="transactions.html">📄 Transactions</a></li>
+
+            <li><a href="profile.html">👤 Profile</a></li>
+
+            <li><a href="settings.html">⚙️ Settings</a></li>
+
+            <li><a href="support.html">❓ Support</a></li>
+
+            <li><a href="index.html">🚪 Logout</a></li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Deposit Funds</h1>
+                <p>Submit a funding request to your LendEarnWorld account.</p>
+            </div>
+
+        </header>
+
+
+        <!-- BALANCE CARDS -->
+
+        <section class="cards">
+
+            <div class="card card-primary">
+                <span>Available Balance</span>
+                <h2>—</h2>
+                <p>Your verified available account balance in USD.</p>
+            </div>
+
+            <div class="card">
+                <span>Total Deposited</span>
+                <h2>—</h2>
+                <p>Your confirmed deposits will appear here.</p>
+            </div>
+
+        </section>
+
+
+        <!-- INTRODUCTION -->
+
+        <section class="panel deposit-welcome">
+
+            <h2>Fund Your LendEarnWorld Account</h2>
+
+            <p>
+                Choose your preferred funding method and enter the amount
+                you would like to deposit.
+            </p>
+
+            <p>
+                Your deposit request will be recorded for payment processing
+                and verification. Your account balance will only be updated
+                after the payment has been received and confirmed.
+            </p>
+
+            <div class="deposit-notice">
+                <strong>Important:</strong>
+                Submitting a deposit request does not mean that money has
+                been received. Do not send money or cryptocurrency until
+                official payment instructions have been provided and verified.
+            </div>
+
+        </section>
+
+
+        <!-- CURRENCY INFORMATION -->
+
+        <section class="panel">
+
+            <h2>Your Deposit Currency</h2>
+
+            <p id="currencyMessage">
+                Checking your registered country and deposit currency...
+            </p>
+
+            <span class="currency-display" id="currencyDisplay"></span>
+
+        </section>
+
+
+        <!-- SELECT PAYMENT METHOD -->
+
+        <section class="panel">
+
+            <div class="panel-title">
+
+                <h2>Select Deposit Method</h2>
+
+                <p>Choose how you would like to fund your account.</p>
+
+            </div>
+
+
+            <div class="deposit-methods">
+
+                <!-- BANK TRANSFER -->
+
+                <div class="deposit-method-card" id="bankCard">
+
+                    <div class="deposit-method-icon">🏦</div>
+
+                    <h3>Bank Transfer</h3>
+
+                    <p>
+                        Submit a bank transfer deposit request using
+                        your country's local currency.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn-primary method-button"
+                        onclick="showMethod('bank')">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+
+                <!-- CRYPTO -->
+
+                <div class="deposit-method-card" id="cryptoCard">
+
+                    <div class="deposit-method-icon">₿</div>
+
+                    <h3>Cryptocurrency</h3>
+
+                    <p>
+                        Submit a cryptocurrency deposit request using
+                        Bitcoin, Ethereum, USDT or USDC.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn-primary method-button"
+                        onclick="showMethod('crypto')">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BANK DEPOSIT FORM -->
+
+        <section id="bank-method" class="panel deposit-form-panel">
+
+            <h2>Bank Transfer Deposit</h2>
+
+            <p>Enter the amount you would like to deposit.</p>
+
+            <div class="deposit-notice">
+                Official bank transfer instructions have not yet been
+                configured. You can submit a request for demonstration
+                purposes, but do not transfer funds until verified
+                business payment details are provided.
+            </div>
+
+            <form id="bankDepositForm" class="deposit-form">
+
+                <div class="form-group">
+
+                    <label for="bankAmount">
+                        Deposit Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bankAmount"
+                        name="amount"
+                        min="1"
+                        step="0.01"
+                        placeholder="Enter deposit amount"
+                        required
+                    >
+
+                    <small id="bankCurrencyLabel"></small>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="bankName">
+                        Bank Account Holder Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bankName"
+                        name="accountHolder"
+                        placeholder="Enter your account holder name"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Submit Deposit Request
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- CRYPTO DEPOSIT FORM -->
+
+        <section id="crypto-method" class="panel deposit-form-panel">
+
+            <h2>Cryptocurrency Deposit</h2>
+
+            <p>Select your cryptocurrency and enter your deposit amount.</p>
+
+            <div class="deposit-notice">
+                Official wallet addresses and live exchange-rate quotes
+                have not yet been configured. Do not send cryptocurrency
+                until the correct wallet address, network and payment
+                amount are provided.
+            </div>
+
+            <form id="cryptoDepositForm" class="deposit-form">
+
+                <div class="form-group">
+
+                    <label for="cryptoType">
+                        Select Cryptocurrency
+                    </label>
+
+                    <select id="cryptoType" name="cryptoType" required>
+
+                        <option value="">Choose cryptocurrency</option>
+
+                        <option value="BTC">Bitcoin (BTC)</option>
+
+                        <option value="ETH">Ethereum (ETH)</option>
+
+                        <option value="USDT-TRC20">USDT (TRC20)</option>
+
+                        <option value="USDC-ERC20">USDC (ERC20)</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="cryptoAmount">
+                        Deposit Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cryptoAmount"
+                        name="amount"
+                        min="1"
+                        step="0.01"
+                        placeholder="Enter deposit amount"
+                        required
+                    >
+
+                    <small id="cryptoCurrencyLabel"></small>
+
+                </div>
+
+
+                <button type="submit" class="btn-primary">
+                    Submit Deposit Request
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- DEPOSIT PROCESS -->
+
+        <section class="panel">
+
+            <div class="panel-title">
+                <h2>Deposit Process</h2>
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-step">
+                    <div class="timeline-circle">1</div>
+                    <h4>Choose Method</h4>
+                    <p>Select Bank Transfer or Cryptocurrency.</p>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="timeline-circle">2</div>
+                    <h4>Enter Amount</h4>
+                    <p>Enter the amount you want to deposit.</p>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="timeline-circle">3</div>
+                    <h4>Payment</h4>
+                    <p>Follow official payment instructions when provided.</p>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="timeline-circle">4</div>
+                    <h4>Verification</h4>
+                    <p>Your payment must be received and verified.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT DEPOSIT REQUESTS -->
+
+        <section class="panel">
+
+            <div class="panel-title">
+
+                <h2>Recent Deposit Requests</h2>
+
+                <p>
+                    Follow the status of your submitted deposit requests.
+                </p>
+
+            </div>
+
+            <table class="activity-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Reference</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="depositHistory">
+
+                    <tr>
+                        <td colspan="5" class="empty-deposits">
+                            No deposit requests yet.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
 
 </div>
 
-<p class="brand-subtitle">Investor Dashboard</p>
-
-<ul class="sidebar-menu">
-
-<li><a href="dashboard.html">🏠 Dashboard</a></li>
-
-<li><a href="portfolio.html">📊 Portfolio</a></li>
-
-<li class="active"><a href="deposit.html">💳 Deposit Funds</a></li>
-
-<li><a href="withdraw.html">💸 Withdraw Funds</a></li>
-
-<li><a href="transactions.html">📄 Transactions</a></li>
-
-<li><a href="profile.html">👤 Profile</a></li>
-
-<li><a href="settings.html">⚙️ Settings</a></li>
-
-<li><a href="support.html">❓ Support</a></li>
-
-<li><a href="index.html">🚪 Logout</a></li>
-
-</ul>
-
-</aside>
-
-<!-- ================= MAIN CONTENT ================= -->
-
-<main class="content">
-
-<header class="topbar">
-
-<div>
-
-<h1>Deposit Funds</h1>
-
-<p>Fund your LendEarnWorld investment account securely.</p>
-
-</div>
-
-</header>
-
-<!-- ================= BALANCE ================= -->
-
-<section class="cards">
-
-<div class="card card-primary">
-
-<span>Available Balance</span>
-
-<h2>$5,200.00</h2>
-
-<p>Current balance available in your account.</p>
-
-</div>
-
-<div class="card">
-
-<span>Total Deposited</span>
-
-<h2>$20,000.00</h2>
-
-<p>Total deposits made to date.</p>
-
-</div>
-
-</section>
-
-<!-- ================= PAYMENT METHODS ================= -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Select Deposit Method</h2>
-
-<p>Choose your preferred funding option.</p>
-
-</div>
-
-<div class="payment-grid">
-
-<!-- Bank -->
-
-<div class="payment-card">
-
-<div class="payment-icon">🏦</div>
-
-<h3>Bank Transfer</h3>
-
-<p>
-
-Deposit directly into the official LendEarnWorld bank account.
-
-</p>
-
-<button class="btn-primary" onclick="showMethod('bank')">
-
-Continue
-
-</button>
-
-</div>
-
-<!-- Crypto -->
-
-<div class="payment-card">
-
-<div class="payment-icon">₿</div>
-
-<h3>Cryptocurrency</h3>
-
-<p>
-
-Deposit using Bitcoin, Ethereum, USDT or USDC.
-
-</p>
-
-<button class="btn-primary" onclick="showMethod('crypto')">
-
-Continue
-
-</button>
-
-</div>
-
-<!-- Card -->
-
-<div class="payment-card">
-
-<div class="payment-icon">💳</div>
-
-<h3>Debit / Credit Card</h3>
-
-<p>
-
-Visa, Mastercard and other supported cards.
-
-</p>
-
-<button class="btn-primary" onclick="showMethod('card')">
-
-Continue
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= BANK DETAILS ================= -->
-
-<div id="bank-method" class="payment-details" style="display:none;">
-
-<section class="panel">
-
-<h2>Bank Transfer Details</h2>
-
-<table class="activity-table">
-
-<tr>
-
-<td>Beneficiary</td>
-
-<td>LendEarnWorld Ltd.</td>
-
-</tr>
-
-<tr>
-
-<td>Bank</td>
-
-<td>Global Finance Bank</td>
-
-</tr>
-
-<tr>
-
-<td>Account Number</td>
-
-<td>1234567890</td>
-
-</tr>
-
-<tr>
-
-<td>SWIFT Code</td>
-
-<td>GLFBUS22</td>
-
-</tr>
-
-<tr>
-
-<td>Reference</td>
-
-<td>LEW-458271</td>
-
-</tr>
-
-</table>
-
-</section>
-
-</div>
-<!-- ================= CRYPTO PAYMENT ================= -->
-
-<div id="crypto-method" class="payment-details" style="display:none;">
-
-<section class="panel">
-
-<h2>Cryptocurrency Deposit</h2>
-
-<p>Select a cryptocurrency and send funds to the address below.</p>
-
-<br>
-
-<table class="activity-table">
-
-<tr>
-
-<td>Bitcoin (BTC)</td>
-
-<td>bc1q8hf4r9x8xxxxxx6d92axxxxxx</td>
-
-</tr>
-
-<tr>
-
-<td>Ethereum (ETH)</td>
-
-<td>0xA34F95E8A91xxxxxxxxxxxxx</td>
-
-</tr>
-
-<tr>
-
-<td>USDT (TRC20)</td>
-
-<td>TJ4Hr5YQ8xxxxxxxxxxxxxxxx</td>
-
-</tr>
-
-<tr>
-
-<td>USDC (ERC20)</td>
-
-<td>0xF8C3A76xxxxxxxxxxxxxxxx</td>
-
-</tr>
-
-</table>
-
-<br>
-
-<div class="notice">
-
-<strong>Important:</strong>
-
-Only send the selected cryptocurrency to the matching wallet address.
-
-</div>
-
-</section>
-
-</div>
-
-<!-- ================= CARD PAYMENT ================= -->
-
-<div id="card-method" class="payment-details" style="display:none;">
-
-<section class="panel">
-
-<h2>Card Deposit</h2>
-
-<p>Complete the information below.</p>
-
-<br>
-
-<form>
-
-<div class="form-group">
-
-<label>Deposit Amount (USD)</label>
-
-<input type="number" placeholder="1000">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Cardholder Name</label>
-
-<input type="text" placeholder="John Doe">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Card Number</label>
-
-<input type="text" placeholder="1234 5678 9012 3456">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>Expiry Date</label>
-
-<input type="text" placeholder="MM/YY">
-
-</div>
-
-<br>
-
-<div class="form-group">
-
-<label>CVV</label>
-
-<input type="password" placeholder="123">
-
-</div>
-
-<br>
-
-<button class="btn-primary">
-
-Proceed to Secure Checkout
-
-</button>
-
-</form>
-
-</section>
-
-</div>
-
-<!-- ================= DEPOSIT PROCESS ================= -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Deposit Process</h2>
-
-</div>
-
-<div class="timeline">
-
-<div class="timeline-step">
-
-<div class="timeline-circle">1</div>
-
-<h4>Choose Method</h4>
-
-<p>Select Bank, Crypto or Card.</p>
-
-</div>
-
-<div class="timeline-step">
-
-<div class="timeline-circle">2</div>
-
-<h4>Make Payment</h4>
-
-<p>Send funds using the selected option.</p>
-
-</div>
-
-<div class="timeline-step">
-
-<div class="timeline-circle">3</div>
-
-<h4>Verification</h4>
-
-<p>Our finance team confirms receipt.</p>
-
-</div>
-
-<div class="timeline-step">
-
-<div class="timeline-circle">4</div>
-
-<h4>Funds Credited</h4>
-
-<p>Your account balance is updated.</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= RECENT DEPOSITS ================= -->
-
-<section class="panel">
-
-<div class="panel-title">
-
-<h2>Recent Deposits</h2>
-
-</div>
-
-<table class="activity-table">
-
-<thead>
-
-<tr>
-
-<th>Reference</th>
-
-<th>Method</th>
-
-<th>Amount</th>
-
-<th>Date</th>
-
-<th>Status</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td>LEW-458271</td>
-
-<td>Bank Transfer</td>
-
-<td>$5,000.00</td>
-
-<td>Jul 28, 2026</td>
-
-<td><span class="badge success">Completed</span></td>
-
-</tr>
-
-<tr>
-
-<td>LEW-458192</td>
-
-<td>Bitcoin</td>
-
-<td>$2,000.00</td>
-
-<td>Jul 25, 2026</td>
-
-<td><span class="badge pending">Pending</span></td>
-
-</tr>
-
-<tr>
-
-<td>LEW-458041</td>
-
-<td>Visa</td>
-
-<td>$1,500.00</td>
-
-<td>Jul 20, 2026</td>
-
-<td><span class="badge success">Completed</span></td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</section>
-
-</main>
-
-</div>
 
 <script>
 
-function showMethod(method){
+// =====================================
+// GET REGISTERED COUNTRY AND CURRENCY
+// =====================================
 
-document.getElementById('bank-method').style.display='none';
-document.getElementById('crypto-method').style.display='none';
-document.getElementById('card-method').style.display='none';
+const countryCode = localStorage.getItem("lewCountry") || "";
 
-document.getElementById(method+'-method').style.display='block';
+const depositCurrency =
+    localStorage.getItem("lewDepositCurrency") || "";
 
-window.scrollTo({
+const currencyMessage = document.getElementById("currencyMessage");
 
-top:document.getElementById(method+'-method').offsetTop-80,
+const currencyDisplay = document.getElementById("currencyDisplay");
 
-behavior:'smooth'
 
-});
+// Check whether registration information exists
+
+if (countryCode && depositCurrency) {
+
+    currencyMessage.textContent =
+        "Your deposit currency is based on your registered country.";
+
+    currencyDisplay.textContent = depositCurrency;
+
+} else {
+
+    currencyMessage.textContent =
+        "No registered country was found. For this demonstration, USD will be used.";
+
+    currencyDisplay.textContent = "USD";
 
 }
+
+
+// Use registered currency or USD for demonstration
+
+const activeCurrency = depositCurrency || "USD";
+
+
+// Display currency beside amount fields
+
+document.getElementById("bankCurrencyLabel").textContent =
+    "Amount in " + activeCurrency;
+
+document.getElementById("cryptoCurrencyLabel").textContent =
+    "Amount in " + activeCurrency;
+
+
+// =====================================
+// SHOW SELECTED PAYMENT METHOD
+// =====================================
+
+function showMethod(method) {
+
+    document.getElementById("bank-method").classList.remove("active");
+
+    document.getElementById("crypto-method").classList.remove("active");
+
+    document.getElementById("bankCard").classList.remove("selected");
+
+    document.getElementById("cryptoCard").classList.remove("selected");
+
+
+    if (method === "bank") {
+
+        document.getElementById("bank-method").classList.add("active");
+
+        document.getElementById("bankCard").classList.add("selected");
+
+    }
+
+    if (method === "crypto") {
+
+        document.getElementById("crypto-method").classList.add("active");
+
+        document.getElementById("cryptoCard").classList.add("selected");
+
+    }
+
+
+    const selectedPanel = document.getElementById(method + "-method");
+
+    selectedPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+// =====================================
+// GET SAVED DEPOSIT REQUESTS
+// =====================================
+
+function getDepositRequests() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("lewDepositRequests") || "[]"
+        );
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+// =====================================
+// SAVE A NEW DEPOSIT REQUEST
+// =====================================
+
+function saveDepositRequest(method, amount, asset) {
+
+    const requests = getDepositRequests();
+
+    const reference =
+        "LEW-" + Date.now().toString().slice(-10);
+
+    const request = {
+
+        reference: reference,
+
+        method: method,
+
+        amount: Number(amount),
+
+        currency: activeCurrency,
+
+        asset: asset || "",
+
+        date: new Date().toISOString(),
+
+        status: "Awaiting Payment"
+
+    };
+
+
+    requests.unshift(request);
+
+    localStorage.setItem(
+        "lewDepositRequests",
+        JSON.stringify(requests)
+    );
+
+
+    return request;
+
+}
+
+
+// =====================================
+// BANK DEPOSIT FORM
+// =====================================
+
+document.getElementById("bankDepositForm").addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        const amount =
+            Number(document.getElementById("bankAmount").value);
+
+        const accountHolder =
+            document.getElementById("bankName").value.trim();
+
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+
+            alert("Please enter a valid deposit amount.");
+
+            return;
+
+        }
+
+        if (!accountHolder) {
+
+            alert("Please enter your bank account holder name.");
+
+            return;
+
+        }
+
+
+        const request = saveDepositRequest(
+            "Bank Transfer",
+            amount,
+            ""
+        );
+
+
+        alert(
+            "Your bank deposit request has been recorded.\n\n" +
+            "Reference: " + request.reference +
+            "\nAmount: " + amount + " " + activeCurrency +
+            "\nStatus: Awaiting Payment\n\n" +
+            "This is a request only. No payment has been received or credited."
+        );
+
+
+        this.reset();
+
+        displayDepositHistory();
+
+    }
+);
+
+
+// =====================================
+// CRYPTO DEPOSIT FORM
+// =====================================
+
+document.getElementById("cryptoDepositForm").addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        const amount =
+            Number(document.getElementById("cryptoAmount").value);
+
+        const cryptoType =
+            document.getElementById("cryptoType").value;
+
+
+        if (!cryptoType) {
+
+            alert("Please select a cryptocurrency.");
+
+            return;
+
+        }
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+
+            alert("Please enter a valid deposit amount.");
+
+            return;
+
+        }
+
+
+        const request = saveDepositRequest(
+            "Cryptocurrency",
+            amount,
+            cryptoType
+        );
+
+
+        alert(
+            "Your cryptocurrency deposit request has been recorded.\n\n" +
+            "Reference: " + request.reference +
+            "\nAmount: " + amount + " " + activeCurrency +
+            "\nAsset: " + cryptoType +
+            "\nStatus: Awaiting Payment\n\n" +
+            "This is a request only. No cryptocurrency has been received or credited."
+        );
+
+
+        this.reset();
+
+        displayDepositHistory();
+
+    }
+);
+
+
+// =====================================
+// DISPLAY DEPOSIT REQUEST HISTORY
+// =====================================
+
+function displayDepositHistory() {
+
+    const history = document.getElementById("depositHistory");
+
+    const requests = getDepositRequests();
+
+
+    history.innerHTML = "";
+
+
+    if (requests.length === 0) {
+
+        history.innerHTML = `
+            <tr>
+                <td colspan="5" class="empty-deposits">
+                    No deposit requests yet.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    requests.forEach(function(request) {
+
+        const row = document.createElement("tr");
+
+        const date = new Date(request.date);
+
+        const formattedDate = date.toLocaleDateString();
+
+
+        const referenceCell = document.createElement("td");
+        referenceCell.textContent = request.reference;
+
+        const methodCell = document.createElement("td");
+
+        methodCell.textContent = request.asset
+            ? request.method + " (" + request.asset + ")"
+            : request.method;
+
+        const amountCell = document.createElement("td");
+
+        amountCell.textContent =
+            Number(request.amount).toLocaleString() +
+            " " + request.currency;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = formattedDate;
+
+        const statusCell = document.createElement("td");
+
+        const statusBadge = document.createElement("span");
+
+        statusBadge.className = "deposit-status";
+
+        statusBadge.textContent = request.status;
+
+        statusCell.appendChild(statusBadge);
+
+
+        row.appendChild(referenceCell);
+        row.appendChild(methodCell);
+        row.appendChild(amountCell);
+        row.appendChild(dateCell);
+        row.appendChild(statusCell);
+
+
+        history.appendChild(row);
+
+    });
+
+}
+
+
+// =====================================
+// LOAD SAVED REQUESTS WHEN PAGE OPENS
+// =====================================
+
+displayDepositHistory();
 
 </script>
 
 </body>
-
 </html>
